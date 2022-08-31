@@ -1,3 +1,9 @@
+//! This crate is a Rust port of [homo].
+//!
+//! [homo]: https://github.com/itorr/homo
+
+
+
 #[cfg(test)]
 mod tests;
 
@@ -621,6 +627,11 @@ fn decompose(num: U1024) -> String {
         .to_string()
 }
 
+/// Decompose integer into the combination of 114514 formulae.
+///
+/// # Failure
+/// - The integer doesn't meet the condition, --2<sup>1024</sup> + 1 ≤ `num` ≤ 2<sup>1024</sup> -- 1 .
+/// - There are invalid characters in `num`.
 pub fn roar(mut num: &str) -> Result<String, FromDecStrErr> {
     // 若传入参数为负，则标记，并脱去负号
     let minus = match num.strip_prefix('-') {
