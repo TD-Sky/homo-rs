@@ -2,8 +2,6 @@
 //!
 //! [homo]: https://github.com/itorr/homo
 
-
-
 #[cfg(test)]
 mod tests;
 
@@ -640,7 +638,7 @@ pub fn roar(mut num: &str) -> Result<String, FromDecStrErr> {
             true
         }
         None => false,
-    };
+    } && num != "0";
     let x = U1024::from_dec_str(num)?;
     let mut s = decompose(x);
 
