@@ -43,6 +43,11 @@ fn minus() {
 }
 
 #[test]
+fn zero() {
+    assert_eq!(roar("0"), roar("-0"));
+}
+
+#[test]
 fn invalid_chars() {
     assert!(roar("悲").is_err());
     assert!(roar("--145").is_err());
