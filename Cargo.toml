@@ -16,8 +16,3 @@ uint = "0.9"
 
 [lib]
 name = "homo"
-
-[[bin]]
-name = "cli"
-test = false
-bench = false
