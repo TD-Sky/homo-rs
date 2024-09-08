@@ -5,27 +5,29 @@
 #[cfg(test)]
 mod tests;
 
-use once_cell::sync::Lazy;
+use std::borrow::Cow;
+use std::cmp::Ordering;
+use std::sync::LazyLock;
+
 use pomsky_macro::pomsky;
 use regex::{Captures, Regex};
-use std::{borrow::Cow, cmp::Ordering};
 use uint::construct_uint;
 pub use uint::FromDecStrErr;
 
 // 匹配 *(1) 或 +(0) 冗余运算
-static RE01: Lazy<Regex> = Lazy::new(|| Regex::new(pomsky!("*(1)" | "+(0)" End)).unwrap());
+static RE01: LazyLock<Regex> = LazyLock::new(|| Regex::new(pomsky!("*(1)" | "+(0)" End)).unwrap());
 // 匹配数字
-static RE_DIGITS: Lazy<Regex> = Lazy::new(|| Regex::new(pomsky!([digit]+)).unwrap());
-static RE乘除冗余括号: Lazy<Regex> =
-    Lazy::new(|| Regex::new(pomsky!(:(["*/"]) '(' :(!["+-()"]+) ')')).unwrap());
-static RE加减冗余括号: Lazy<Regex> =
-    Lazy::new(|| Regex::new(pomsky!(:(["+-"]) '(' :(!["()"]+) ')' :(["+-"]))).unwrap());
-static RE行末加减冗余括号: Lazy<Regex> =
-    Lazy::new(|| Regex::new(pomsky!(:(["+-"]) '(' :(!["()"]+) ')' End)).unwrap());
-static RE行冗余括号: Lazy<Regex> =
-    Lazy::new(|| Regex::new(pomsky!(Start '(' :(!["()"]+) ')' End)).unwrap());
+static RE_DIGITS: LazyLock<Regex> = LazyLock::new(|| Regex::new(pomsky!([digit]+)).unwrap());
+static RE乘除冗余括号: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(pomsky!(:(["*/"]) '(' :(!["+-()"]+) ')')).unwrap());
+static RE加减冗余括号: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(pomsky!(:(["+-"]) '(' :(!["()"]+) ')' :(["+-"]))).unwrap());
+static RE行末加减冗余括号: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(pomsky!(:(["+-"]) '(' :(!["()"]+) ')' End)).unwrap());
+static RE行冗余括号: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(pomsky!(Start '(' :(!["()"]+) ')' End)).unwrap());
 // 基础 114514 算式
-static MEMO: [(u32, &'static str); 520] = [
+const MEMO: &[(u32, &str); 520] = &[
     (0, "(1-1)*4514"),
     (1, "11/(45-1)*4"),
     (2, "-11+4-5+14"),
@@ -601,7 +603,7 @@ fn infimum_of(x: u32) -> Infimum {
 
     // 二分迭代结束，却仍未退出，
     // 结合开头，说明是 229028
-    return Infimum::Eqaul;
+    Infimum::Eqaul
 }
 
 // 递归分解大数至不完全 114514 算式
