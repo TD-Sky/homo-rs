@@ -1,7 +1,7 @@
 [package]
 name = "homo-rs"
 authors = ["Collide <three-dim-sky@foxmail.com>"]
-version = "0.1.3"
+version = "0.2.0"
 description = "HOMO argumentator in Rust."
 repository = "https://github.com/TD-Sky/homo-rs"
 documentation = "https://docs.rs/homo-rs/latest/homo"
