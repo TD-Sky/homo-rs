@@ -11,8 +11,8 @@ use std::sync::LazyLock;
 
 use pomsky_macro::pomsky;
 use regex::{Captures, Regex};
-use uint::construct_uint;
 pub use uint::FromDecStrErr;
+use uint::construct_uint;
 
 // 匹配 *(1) 或 +(0) 冗余运算
 static RE01: LazyLock<Regex> = LazyLock::new(|| Regex::new(pomsky!("*(1)" | "+(0)" End)).unwrap());

@@ -1,4 +1,4 @@
-use super::{infimum_of, roar, Infimum};
+use super::{Infimum, infimum_of, roar};
 
 #[test]
 fn binary_search() {
